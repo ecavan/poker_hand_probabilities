@@ -7,6 +7,8 @@ import itertools
 colors = ['h', 'd', 's', 'c']      
 deck = [(value, color) for value in list(range(2, 15)) for color in colors]
 
+### add win %? --> change deal function to get other players cards ###
+
 def get_result_hand(c1,c2,c3,c4,c5,c6,c7):
     
     cards = [c1,c2,c3,c4,c5,c6,c7]
@@ -267,6 +269,52 @@ def deal(deck, num_player, remove_cards):
 
 ### get input from user, change to cards, run MC sims ##
 
-def get_hand_odds():
-    pass
+def get_hand_odds(num_player, num_sims = 1000):
+    card1 = input("First Card: ")
+    card2 = input("Second Card: ")
 
+    if len(card1) > 2:
+        card1 = (int(card1[0:2]), card1[-1])
+    else:
+        card1 = (int(card1[0]), card1[1])
+
+    if len(card2) > 2:
+        card2 = (int(card2[0:2]), card2[-1])
+    else:
+        card2 = (int(card2[0]), card2[1])
+
+    remove_cards = [card1, card2]
+
+    #results_dict = {}
+    results_list = []
+
+    for j in range(num_sims):
+        colors = ['h', 'd', 's', 'c']      
+        deck = [(value, color) for value in list(range(2, 15)) for color in colors]
+        #)
+        #print(deck)
+        cards = deal(deck, num_player, remove_cards)
+
+        cards2 = [list(cards[0][0]), list(cards[0][1]), list(cards[0][2]), list(cards[1][0]), list(cards[2][0])]
+    
+        for element in cards2:
+            element[0]=int(element[0])
+
+        results = get_result_hand(list(remove_cards[0]), list(remove_cards[1]),cards2[0], cards2[1],cards2[2],cards2[3],cards2[4])
+        results_list.append(results[1])
+
+    d = dict(Counter(results_list))
+    k={i:100*(j/1000) for i,j in d.items()}
+    print(k)
+
+    return "Odds Calculated"
+
+
+    
+
+
+
+
+if __name__ == '__main__':
+    num_player = 6
+    get_hand_odds(num_player)

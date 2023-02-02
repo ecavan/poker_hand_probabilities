@@ -5,6 +5,8 @@ import pandas as pd
 import itertools
 import time
 
+### requires user to specify num_players ####
+
 ## add win or lose ###
 
 colors = ['h', 'd', 's', 'c']      
@@ -305,6 +307,6 @@ def print_game(num_player):
     return "End of Hand"
 
 
-if __name__ == '__main__':
-    num_player = 6
-    print_game(num_player)
+# if __name__ == '__main__':
+#     num_player = 6
+#     print_game(num_player)

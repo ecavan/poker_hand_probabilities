@@ -5,7 +5,7 @@ import pandas as pd
 import itertools
 import time
 
-## add win or lose ###
+### doesn't require user to specify num_players ####
 
 colors = ['h', 'd', 's', 'c']      
 deck = [(value, color) for value in list(range(2, 15)) for color in colors]
@@ -312,6 +312,6 @@ def get_nuts(deck):
     print(hand_df)
     return hand_df
 
-if __name__ == '__main__':
-    #num_player = 6
-    get_nuts(deck)
+# if __name__ == '__main__':
+#     #num_player = 6
+#     get_nuts(deck)

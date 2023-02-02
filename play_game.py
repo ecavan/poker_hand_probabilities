@@ -44,10 +44,8 @@ def deal_play_game(deck, num_player):
 
 def get_result_game(c1,c2,c3,c4,c5,c6,c7):
     
-#     j = 0
-#     personal_cards_values = [hands[j][0][0], hands[j][1][0]]
-#     personal_cards_suits = [hands[j][0][1], hands[j][1][1]]
     cards = [c1,c2,c3,c4,c5,c6,c7]
+    hand_cards = [c1,c2]
     #print(cards)
     values = []
     suits = []
@@ -60,17 +58,13 @@ def get_result_game(c1,c2,c3,c4,c5,c6,c7):
 
     num_matching = dict(Counter(suits))
     pairs_matching = dict(Counter(values))
-    #print(num_matching)
-    #print(pairs_matching)
 
     lst_of_pairs = [key for key, val in pairs_matching.items() if val == 2]
     lst_of_triples = [key for key, val in pairs_matching.items() if val == 3]
     lst_of_quads = [key for key, val in pairs_matching.items() if val == 4]
 
     sorted_values = list(set(sorted(list(map(int, values)))))
-    #print(sorted_values)
-    #print(len(sorted_values))
-
+    
     if all(elem in sorted_values for elem in [2,3,4,5,14]):
 
         low_ball_straight = True
@@ -78,8 +72,6 @@ def get_result_game(c1,c2,c3,c4,c5,c6,c7):
     else:
 
         low_ball_straight = False
-        
-    #print(low_ball_straight)
 
     if (5 in num_matching.values()) or (6 in num_matching.values()) or (7 in num_matching.values()):
 
@@ -166,7 +158,9 @@ def get_result_game(c1,c2,c3,c4,c5,c6,c7):
     else:
 
         is_straight = False
+        
     #print(is_straight,is_flush)
+    #print(is_flush)
     
     if (is_straight) & (is_flush):
         if straight_indices == flush_indices:
@@ -179,153 +173,136 @@ def get_result_game(c1,c2,c3,c4,c5,c6,c7):
 
         is_straight_flush = False
 
-
-    if (max(sorted_values) == 14) & (is_straight_flush):
+    if (max(sorted_values) == 14) & ((is_straight) & (is_flush)):
 
         hand_value =  10
-        #pocket_cards = player_cards
-        #self.best_five = straight_cards
-        #self.kickers = []
         hand_name = "Royal Flush"
+        high_card = 14
+        kicker = []
 
     elif ((is_straight) & (is_flush))|((low_ball_straight) & (is_flush)):
 
         hand_value =  9
-    #     best_five = straight_cards
-    #     self.pocket_cards = player_cards
-    #     self.kickers = []
+        
+        if low_ball_straight:
+            high_card = 5
+        else:
+            high_card = max(straight_cards)
+
+        kicker = []
         hand_name = "Straight Flush"
 
     elif 4 in pairs_matching.values():
 
         hand_value =  8
-        #self.pocket_cards = player_cards
-        #self.best_five = lst_of_quads
-        #self.kickers = kickers
+        high_card = lst_of_quads[0]
+        hand_card_values = [hand_cards[0][0], hand_cards[1][0]]
+        try:
+            kicker = max([i for i in hand_card_values if i != high_card])
+        except:
+            kicker = []
         hand_name = "Four of a Kind"
 
-    #     possible_kickers = list(set(lst_of_quads) - set(player_cards_values))
-
-    #     if len(possible_kickers)>0:
-    #         self.kickers = possible_kickers
-    #     else:
-    #         self.kickers = max(community_cards_values)
-
-
-    elif (three_of_a_kind) & (one_pair):
+    elif (three_of_a_kind) & (len(lst_of_pairs)>0):
+        
+        ### additional logic for when high card is a list ####
 
         hand_value =  7
-    #     self.pocket_cards = player_cards
-    #     self.best_five = [lst_of_triples[0], lst_of_pairs[0]]
-    #     self.kickers = []
+        hand_card_values = [hand_cards[0][0], hand_cards[1][0]]
+        
+        high_card = [max(lst_of_triples),max(lst_of_pairs)]
+        kicker = []
         hand_name = "Full House"
 
     elif is_flush:
 
         hand_value =  6
-    #     self.pocket_cards = player_cards
-    #     self.best_five = flush_cards_values
-    #     self.kickers = []
+        kicker = []
+        high_card = max(flush_cards)
         hand_name = "Flush"
 
     elif (is_straight)|(low_ball_straight):
 
         hand_value =  5
-    #     self.pocket_cards = player_cards
-    #     self.best_five = straight_cards
-    #     self.kickers = []
+        
+        if low_ball_straight:
+            high_card = 5
+        else:
+            high_card = max(straight_cards)
+            
+        kicker = []
         hand_name = "Straight"
 
     elif (three_of_a_kind):
 
         hand_value =  4
-    #     self.pocket_cards = player_cards
-    #     self.best_five = lst_of_triples
-        #self.kickers = kickers
-        hand_name = "Three of a Kind"
-    #     possible_kickers = [x for x in player_cards_values if x not in lst_of_triples]
+        high_card = max(lst_of_triples)
+        hand_card_values = [hand_cards[0][0], hand_cards[1][0]]
+        kicker = [i for i in hand_card_values if i != high_card]
 
-    #     if len(possible_kickers)>0:
-    #         self.kickers = possible_kickers
-    #     else:
-    #         self.kickers = []
+        hand_name = "Three of a Kind"
 
     elif two_pair:
 
         hand_value =  3
-    #     self.pocket_cards = player_cards
-    #     self.best_five = lst_of_pairs 
-        #self.kickers = kickers
+        high_pair = max(lst_of_pairs)
+        second_high_par = max([i for i in lst_of_pairs if  i!=high_pair])
+        high_card = [high_pair,second_high_par]
+        hand_card_values = [hand_cards[0][0], hand_cards[1][0]]
+        kicker = [i for i in hand_card_values if i not in high_card]
         hand_name = "Two Pair"
-        #possible_kickers = [x for x in player_cards_values if x not in lst_of_pairs]
-        #possible_kickers = list(set(lst_of_pairs) - set(player_cards_values))
-
-    #     if len(possible_kickers)>0:
-    #         self.kickers = possible_kickers
-    #     else:
-    #         self.kickers = []
 
     elif (one_pair):
 
         hand_value =  2
-    #     self.pocket_cards = player_cards
-    #     self.best_five = lst_of_pairs
-    #     #self.kickers = kickers
         hand_name = "Pair"
-
-    #     possible_kickers = [x for x in player_cards_values if x not in lst_of_pairs]
-
-    #     if len(possible_kickers)>0:
-    #         self.kickers = sorted(possible_kickers)
-    #     else:
-    #         self.kickers = []
-
+        
+        high_pair = max(lst_of_pairs)
+        #second_high_par = max([i for i in lst_of_pairs if  i!=high_pair])
+        high_card = high_pair
+        hand_card_values = [hand_cards[0][0], hand_cards[1][0]]
+        kicker = [i for i in hand_card_values if i != high_card]
+        
     else:
 
         hand_value =  1
-    #     self.pocket_cards = player_cards
-    #     self.best_five = max(sorted_values)
-        #self.kickers = kickers
         hand_name = "High Card"
-        #possible_kickers = [x for x in player_cards_values if x != max(sorted_values)]
-
-    #     if len(possible_kickers)>0:
-    #         self.kickers = so
-    
-#     if three_of_a_kind:
-#         print(cards)
         
-#     if 4 in pairs_matching.values():
-#         print(cards)
+        high_card = max(values)
+        hand_card_values = [hand_cards[0][0], hand_cards[1][0]]
+        kicker = [i for i in hand_card_values if i != high_card]
 
-    return hand_value, hand_name
-
+    return hand_value, hand_name, high_card, kicker
 
 
 
 def print_game(num_player):
     pocket, flop, turn, river, players = deal_play_game(deck, num_player)
-    print("Player 1 Cards")
+    #print("Player 1 Cards")
     print(''.join(map(str,pocket[0])),''.join(map(str,pocket[1])))
-    time.sleep(3)
-    print('')
-    print('Flop')
-    print(''.join(map(str,flop[0])),''.join(map(str,flop[1])), ''.join(map(str,flop[2])))
-    time.sleep(1)
-    print('Turn')
-    print(''.join(map(str,turn[0])))
-    time.sleep(1)
-    print('River')
-    print(''.join(map(str,river[0])))
-    results = get_result_game(pocket[0],pocket[1],flop[0],flop[1],flop[2],turn[0],river[0])
-    print(results)
     time.sleep(2)
+    print('')
+    print('Community Cards')
+    print(''.join(map(str,flop[0])),''.join(map(str,flop[1])), ''.join(map(str,flop[2])), ''.join(map(str,turn[0])), ''.join(map(str,river[0])))
+    # time.sleep(1)
+    # print('Turn')
+    # print(''.join(map(str,turn[0])))
+    # time.sleep(1)
+    # print('River')
+    # print(''.join(map(str,river[0])))
+    results = get_result_game(pocket[0],pocket[1],flop[0],flop[1],flop[2],turn[0],river[0])
+    #print('')
+    #print(results[1] + ' ' + str(results[2]))
+    time.sleep(1)
     print('')
     print("Opponent Hands:")
     for i in range(len(players)):
+        #results = get_result_game(players[i][0],players[i][1],flop[0],flop[1],flop[2],turn[0],river[0])
         print(''.join(map(str,players[i][0])),''.join(map(str,players[i][1])))
+        #print(results[1] + ' ' + str(results[2]))
 
-    return "Game End"
+    #### logic to output win/lose, your hand vs top opponent ###
+    return "End of Hand"
 
 
 if __name__ == '__main__':

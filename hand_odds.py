@@ -310,11 +310,6 @@ def get_hand_odds(num_player, num_sims = 1000):
     return "Odds Calculated"
 
 
-    
-
-
-
-
 if __name__ == '__main__':
     num_player = 6
     get_hand_odds(num_player)

@@ -7,7 +7,7 @@ import itertools
 colors = ['h', 'd', 's', 'c']      
 deck = [(value, color) for value in list(range(2, 15)) for color in colors]
 
-### add win %? --> change deal function to get other players cards ###
+### add win % ###
 
 def get_result_hand(c1,c2,c3,c4,c5,c6,c7):
     
@@ -258,23 +258,30 @@ def deal(deck, num_player, remove_cards):
 
     rng = np.random.default_rng()
     
-    cards = rng.choice(deck, size=2*num_player + 8, replace=False)
+    cards = rng.choice(deck, size=2*(num_player-1) + 8, replace=False)
 
-    player_cards = cards[0:2*num_player]
-    face_cards = cards[2*num_player:]
+    player_cards = cards[0:2*(num_player-1)]
+    face_cards = cards[2*(num_player-1):]
     
-    pocket = [player_cards[0], player_cards[1]]
+    #pocket = [player_cards[0], player_cards[1]]
 
     flop = face_cards[1:4]
     turn = face_cards[5:6]
     river = face_cards[7:8]
 
-    return flop, turn, river
+    players = []
+
+    for i in range(num_player-1):
+        players.append([player_cards[i], player_cards[i + (num_player-1)]])
+
+    return flop, turn, river, players
 
 
 ### get input from user, change to cards, run MC sims ##
+#default = 10,000
+#reccomend = 100,000 - 300,000
 
-def get_hand_odds(num_player, num_sims = 1000):
+def get_hand_odds(num_player, num_sims = 10000):
     card1 = input("First Card: ")
     card2 = input("Second Card: ")
 
@@ -298,7 +305,11 @@ def get_hand_odds(num_player, num_sims = 1000):
         deck = [(value, color) for value in list(range(2, 15)) for color in colors]
         #)
         #print(deck)
-        cards = deal(deck, num_player, remove_cards)
+        flop, turn, river, players = deal(deck, num_player, remove_cards)
+
+        cards = [flop, turn, river]
+
+        #print(cards)
 
         cards2 = [list(cards[0][0]), list(cards[0][1]), list(cards[0][2]), list(cards[1][0]), list(cards[2][0])]
     
@@ -309,9 +320,12 @@ def get_hand_odds(num_player, num_sims = 1000):
         results_list.append(results[1])
 
     d = dict(Counter(results_list))
-    k={i:100*(j/1000) for i,j in d.items()}
-    print(k)
-
+    k={i:100*(j/num_sims) for i,j in d.items()}
+    df = pd.DataFrame(k, index = [0]).T.reset_index()
+    df.columns = ['Hand', 'Probability']
+    df = df.sort_values('Probability')
+    df = df.reset_index(drop = True)
+    print(df)
     return "Odds Calculated"
 
 

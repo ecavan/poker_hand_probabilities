@@ -23,6 +23,10 @@ def get_community_cards(deck):
     
     cards = rng.choice(deck, size=8, replace=False)
 
+    print('')
+    print('Burn Cards')
+    print(''.join(map(str,cards[0])), ''.join(map(str,cards[4])), ''.join(map(str,cards[6])))
+
     flop = cards[1:4]
     turn = cards[5:6]
     river = cards[7:8]
@@ -275,9 +279,12 @@ def get_result_nuts(c1,c2,c3,c4,c5,c6,c7):
 def get_nuts(deck):
 
     face_cards = get_community_cards(deck)
-    print('Community Cards')
-    print(face_cards)
     print('')
+    print('Community Cards')
+    print(''.join(map(str,face_cards[0])),''.join(map(str,face_cards[1])),''.join(map(str,face_cards[2])),''.join(map(str,face_cards[3])),''.join(map(str,face_cards[4])) )
+    #print(face_cards)
+    print('')
+    #print('')
 
     for i in face_cards:
         deck.remove(tuple(i))
@@ -290,8 +297,10 @@ def get_nuts(deck):
         
         results = get_result_nuts(list(all_hand_combs[i][0]), list(all_hand_combs[i][1]),face_cards[0], face_cards[1],face_cards[2],face_cards[3],face_cards[4])
         #results_list.append(results[1])
+
+        to_append = ''.join(map(str,all_hand_combs[i][0]))  + ' ' + ''.join(map(str,all_hand_combs[i][1]))
         
-        hand_results["Cards"].append( all_hand_combs[i])
+        hand_results["Cards"].append(to_append)
         hand_results["Hand Name"].append(results[1])
         hand_results["Hand Value"].append(results[0])
         hand_results["High Card"].append(results[2])
@@ -300,23 +309,31 @@ def get_nuts(deck):
 
     hand_df = pd.DataFrame(hand_results)
     hand_df["Frequency %"] = 100*hand_df.groupby("Hand Name")["Cards"].transform('nunique')/1081
-    hand_df = pd.concat([hand_df, hand_df["High Card"].apply(pd.Series)], axis=1)
+    
+    try:
+    
+        hand_df = pd.concat([hand_df, hand_df["High Card"].apply(pd.Series)], axis=1)
 
-    hand_df.columns = ['Best Hand', 'Hand Name', 'Hand Value', 'drop', 'Kicker',
-       'Frequency %', 'High Card1', "High Card2"]
+        hand_df.columns = ['Best Hand', 'Hand Name', 'Hand Value', 'drop', 'Kicker',
+        'Frequency %', 'High Card1', "High Card2"]
 
-    hand_df = hand_df.drop('drop', axis=1)
+        hand_df = hand_df.drop('drop', axis=1)
 
-    hand_df['High Card2'] = hand_df['High Card2'].fillna(hand_df['High Card1'])
+        hand_df['High Card2'] = hand_df['High Card2'].fillna(hand_df['High Card1'])
 
-    hand_df = hand_df.sort_values(["Hand Value", 'High Card1', 'High Card2'], ascending = [False, False, False])
-    hand_df = hand_df.drop_duplicates('Hand Name')
+        hand_df = hand_df.sort_values(["Hand Value", 'High Card1', 'High Card2'], ascending = [False, False, False])
+        hand_df = hand_df.drop_duplicates('Hand Name')
 
-    hand_df = hand_df[['Best Hand', 'Hand Name', 'Hand Value','Frequency %']].reset_index(drop=True)
-    hand_df.index = hand_df.index+1
-    print(hand_df)
+        hand_df = hand_df[['Best Hand', 'Hand Name', 'Hand Value','Frequency %']].reset_index(drop=True)
+        hand_df.index = hand_df.index+1
+        print(hand_df)
+        print('')
+
+    except:
+        print('')
+        print(hand_df)
     return hand_df
 
-# if __name__ == '__main__':
-#     #num_player = 6
-#     get_nuts(deck)
+if __name__ == '__main__':
+    #num_player = 6
+    get_nuts(deck)

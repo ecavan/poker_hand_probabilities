@@ -55,7 +55,7 @@ Finally,
 >>> import pokerprobs 
 >>> pokerprobs.get_hand_odds(num_players, num_sims)
 ```
-This function asks you for a starting hand (2 cards) and outputs the probability of each 5-card result using monte carlo simulations. The default number of sims is 10k (you can run the function as  pokerprobs.get_hand_odds(num_players) ); but in my experience you may want to set num_sims to be between 100k-300k for the best result for the rarer hand combinations. For example, here I've input the Doyle Brunson special:
+This function asks you for a starting hand (2 cards) and outputs the probability of each 5-card result using monte carlo simulations. The default number of sims is 10k (you can run the function as  pokerprobs.get_hand_odds(num_players)); but in my experience you may want to set num_sims to be between 100k-300k for the best result for the rarer hand combinations. For example, here I've input the Doyle Brunson special:
 ```
 First Card: 10s
 Second Card: 2c

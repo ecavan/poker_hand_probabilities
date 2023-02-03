@@ -4,11 +4,12 @@ To install:
 ```
 pip install pokerprobs
 ```
-(or download the repo and run pip install -e .)
+(or download the repo, cd into it and run pip install -e .; if not try the same with pip3)
 
 The cards are input and output as, for example, 12h,9d,3c; where h,d,c,s represent the suits hearts, diamonds, clubs and spades and 11,12,13,14 represent the jack, queen, king and ace respectively. There are three modules. After installing you can run:
 
 ```
+
 >>> import pokerprobs 
 >>> pokerprobs.print_game(num_players)
 ```
@@ -48,7 +49,7 @@ Community Cards
 5    9c 13s         Two Pair           3    37.465310
 6   10s 11d             Pair           2    49.953747
 ```
-This function returns a (right now random) set of community cards, and iterates through all combinations of starting hands to give you the best 5-card results and the probability that they will occur.
+This function returns a (right now random) set of community cards, and iterates through all combinations of starting hands to give you the best 5-card results and the probability that they will occur. 
 
 Finally, 
 ```

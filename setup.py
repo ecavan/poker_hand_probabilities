@@ -7,7 +7,7 @@ LONG_DESCRIPTION = 'A Python Package for Poker Statistics'
 # Setting up
 setup(
        # the name must match the folder name 'verysimplemodule'
-        name="poker_hand_probabilities", 
+        name="pokerprobs", 
         version=VERSION,
         author="Elijah Cavan",
         author_email="eli_cavan@live.ca",

@@ -1,6 +1,0 @@
-README.md
-setup.py
-poker_hand_probabilities.egg-info/PKG-INFO
-poker_hand_probabilities.egg-info/SOURCES.txt
-poker_hand_probabilities.egg-info/dependency_links.txt
-poker_hand_probabilities.egg-info/top_level.txt

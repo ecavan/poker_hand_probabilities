@@ -144,13 +144,16 @@ def get_result_nuts(c1,c2,c3,c4,c5,c6,c7):
 
             else:
                 is_straight = False
+                straight_cards = [0]
                 
         except:
             is_straight = False
+            straight_cards = [0]
 
     else:
 
         is_straight = False
+        straight_cards = [0]
         
     #print(is_straight,is_flush)
     #print(is_flush)
@@ -161,12 +164,14 @@ def get_result_nuts(c1,c2,c3,c4,c5,c6,c7):
             is_straight_flush = True
         else:
             is_straight_flush = False
+            straight_cards = [0]
 
     else:
 
         is_straight_flush = False
+        straight_cards = [0]
 
-    if (max(sorted_values) == 14) & ((is_straight) & (is_flush)):
+    if (max(straight_cards) == 14) & ((is_straight) & (is_flush)):
 
         hand_value =  10
         hand_name = "Royal Flush"

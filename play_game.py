@@ -14,9 +14,6 @@ deck = [(value, color) for value in list(range(2, 15)) for color in colors]
 
 def deal_play_game(deck, num_player):
 
-    #deck.remove(remove_cards[0])
-    #deck.remove(remove_cards[1])
-
     random.shuffle(deck)
     random.shuffle(deck)
     random.shuffle(deck)
@@ -153,14 +150,16 @@ def get_result_game(c1,c2,c3,c4,c5,c6,c7):
 
             else:
                 is_straight = False
+                straight_cards = [0]
                 
         except:
             is_straight = False
+            straight_cards = [0]
 
     else:
 
         is_straight = False
-        
+        straight_cards = [0]
     #print(is_straight,is_flush)
     #print(is_flush)
     
@@ -175,7 +174,7 @@ def get_result_game(c1,c2,c3,c4,c5,c6,c7):
 
         is_straight_flush = False
 
-    if (max(sorted_values) == 14) & ((is_straight) & (is_flush)):
+    if (max(straight_cards) == 14) & ((is_straight) & (is_flush)):
 
         hand_value =  10
         hand_name = "Royal Flush"
@@ -281,32 +280,64 @@ def get_result_game(c1,c2,c3,c4,c5,c6,c7):
 def print_game(num_player):
     pocket, flop, turn, river, players = deal_play_game(deck, num_player)
     #print("Player 1 Cards")
+    print('')
     print(''.join(map(str,pocket[0])),''.join(map(str,pocket[1])))
-    time.sleep(2)
+    time.sleep(1)
     print('')
     print('Community Cards')
     print(''.join(map(str,flop[0])),''.join(map(str,flop[1])), ''.join(map(str,flop[2])), ''.join(map(str,turn[0])), ''.join(map(str,river[0])))
-    # time.sleep(1)
-    # print('Turn')
-    # print(''.join(map(str,turn[0])))
-    # time.sleep(1)
-    # print('River')
-    # print(''.join(map(str,river[0])))
-    results = get_result_game(pocket[0],pocket[1],flop[0],flop[1],flop[2],turn[0],river[0])
+
+    results_player = get_result_game(pocket[0],pocket[1],flop[0],flop[1],flop[2],turn[0],river[0])
     #print('')
     #print(results[1] + ' ' + str(results[2]))
     time.sleep(1)
+    results_dict = []
     print('')
     print("Opponent Hands:")
     for i in range(len(players)):
-        #results = get_result_game(players[i][0],players[i][1],flop[0],flop[1],flop[2],turn[0],river[0])
-        print(''.join(map(str,players[i][0])),''.join(map(str,players[i][1])))
+        results = get_result_game(players[i][0],players[i][1],flop[0],flop[1],flop[2],turn[0],river[0])
+        print(''.join(map(str,players[i][0])),''.join(map(str,players[i][1])) + ' |', end=' ')
+        results_dict.append(results)
         #print(results[1] + ' ' + str(results[2]))
+    #results_dict.append(results_player)
 
+    # for i in range(len(players)):
+    #     if results_dict[-1][0] >
+    opp = max(results_dict,key=lambda item:item[0])
+
+    #print(results_dict)
+    print('')
+    print('')
+    print('Hand Results')
+    print(f"You had {results_player[1]} vs Top Opponent {opp[1]}")
+    print('')
     #### logic to output win/lose, your hand vs top opponent ###
+    # if results_player[0] < opp[0]:
+    #     print('Lose')
+    # elif results_player[0] > opp[0]:
+    #     print("Win")
+    # else:
+    #     try:
+    #         if int(results_player[2]) > int(opp[2]):
+    #             print('Win')
+    #         elif int(results_player[2]) < int(opp[2]):
+    #             print('Lose')
+    #         else:
+    #             if int(results_player[3][0]) > int(opp[3][0]):
+    #                 print("Win")
+    #             elif int(results_player[3][0]) < int(opp[3][0]):
+    #                 print('Lose')
+    #             else:
+    #                 print("Split")
+    #     except:
+    #         print('Split')
+
+
+
+
     return "End of Hand"
 
 
-# if __name__ == '__main__':
-#     num_player = 6
-#     print_game(num_player)
+if __name__ == '__main__':
+    num_player = 6
+    print_game(num_player)

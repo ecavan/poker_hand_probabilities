@@ -73,6 +73,39 @@ Second Card: 2c
 8             Pair        46.10
 ```
 
+As an aside, this example compares the returned probabilities when playing with pocket kings
 
+```
+>>> pokerprobs.get_hand_odds(6)
+First Card: 13c
+Second Card: 13d
 
+              Hand  Probability
+0   Straight Flush         0.04
+1   Four of a Kind         0.76
+2         Straight         1.03
+3            Flush         1.83
+4       Full House         8.30
+5  Three of a Kind        11.93
+6             Pair        36.17
+7         Two Pair        39.94
 
+>>> pokerprobs.get_hand_odds(6,500000)
+First Card: 13c
+Second Card: 13d
+
+              Hand  Probability
+0      Royal Flush       0.0008
+1   Straight Flush       0.0370
+2   Four of a Kind       0.8388
+3         Straight       1.2202
+4            Flush       1.9514
+5       Full House       8.3452
+6  Three of a Kind      11.9694
+7             Pair      36.0032
+8         Two Pair      39.6340
+```
+
+There is an obvious trade off in the time it takes for the function to execute.
+
+Feel free to email me @ eli_cavan@live.ca or DM on twitter @cavan_elijah for comments/requests. 

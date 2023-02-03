@@ -325,7 +325,9 @@ def get_hand_odds(num_player, num_sims = 10000):
     df.columns = ['Hand', 'Probability']
     df = df.sort_values('Probability')
     df = df.reset_index(drop = True)
+    print('')
     print(df)
+    print('')
     return "Odds Calculated"
 
 

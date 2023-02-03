@@ -1,1 +1,7 @@
-# poker_hand_probabilities
+#Python Poker Tools
+
+To install:
+
+'''
+pip install pokerprobs
+'''

@@ -1,6 +1,0 @@
-README.md
-setup.py
-PokerProbs.egg-info/PKG-INFO
-PokerProbs.egg-info/SOURCES.txt
-PokerProbs.egg-info/dependency_links.txt
-PokerProbs.egg-info/top_level.txt

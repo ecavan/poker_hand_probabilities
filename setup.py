@@ -1,13 +1,13 @@
 from setuptools import setup, find_packages
 
 VERSION = '0.0.1' 
-DESCRIPTION = 'PokerProbs'
+DESCRIPTION = 'poker_hand_probabilities'
 LONG_DESCRIPTION = 'A Python Package for Poker Statistics'
 
 # Setting up
 setup(
        # the name must match the folder name 'verysimplemodule'
-        name="PokerProbs", 
+        name="poker_hand_probabilities", 
         version=VERSION,
         author="Elijah Cavan",
         author_email="eli_cavan@live.ca",

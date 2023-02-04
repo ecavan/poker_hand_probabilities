@@ -4,6 +4,7 @@ from collections import Counter
 import pandas as pd
 import itertools
 import time
+import re
 
 ### doesn't require user to specify num_players ####
 
@@ -273,20 +274,41 @@ def get_result_nuts(c1,c2,c3,c4,c5,c6,c7):
 
     return hand_value, hand_name, high_card, kicker
 
-def get_nuts():
+# def mysplit(s):
+#     head = s.rstrip('0123456789')
+#     tail = s[len(head):]
+#     return head, tail
+
+def get_nuts(chose = True):
     colors = ['h', 'd', 's', 'c']      
     deck = [(value, color) for value in list(range(2, 15)) for color in colors]
+    #print(deck[0])
+    if chose:
+        face_cards = get_community_cards(deck)
+        print('')
+        print('Community Cards')
+        print(''.join(map(str,face_cards[0])),''.join(map(str,face_cards[1])),''.join(map(str,face_cards[2])),''.join(map(str,face_cards[3])),''.join(map(str,face_cards[4])) )
+        #print(face_cards)
+        print('')
 
-    face_cards = get_community_cards(deck)
-    print('')
-    print('Community Cards')
-    print(''.join(map(str,face_cards[0])),''.join(map(str,face_cards[1])),''.join(map(str,face_cards[2])),''.join(map(str,face_cards[3])),''.join(map(str,face_cards[4])) )
-    #print(face_cards)
-    print('')
-    #print('')
+        for i in face_cards:
+            deck.remove(tuple(i))
+        #print('')
+    else:
+        face_cards = input('Community Cards (Spaced): ')
+        face_cards_values  = face_cards.split(' ')
+        #print(face_cards_values)
 
-    for i in face_cards:
-        deck.remove(tuple(i))
+        face_cards = [re.split(r'(\d+)', s)[1:3] for s in tuple(face_cards_values)]
+        #print(face_cards)
+
+        for element in face_cards:
+            element[0]=int(element[0])
+
+        for i in face_cards:
+            #print(tuple(i))
+            deck.remove(tuple(i))
+
 
     all_hand_combs = list(itertools.combinations(deck, 2))
 
@@ -329,11 +351,24 @@ def get_nuts():
         print('')
 
     except:
-        print('')
+
+        hand_df.columns = ['Best Hand', 'Hand Name', 'Hand Value', 'drop', 'Kicker',
+        'Frequency %', 'High Card1']
+
+        hand_df = hand_df.drop('drop', axis=1)
+
+        #hand_df['High Card2'] = hand_df['High Card2'].fillna(hand_df['High Card1'])
+
+        hand_df = hand_df.sort_values(["Hand Value", 'High Card1'], ascending = [False, False])
+        hand_df = hand_df.drop_duplicates('Hand Name')
+
+        hand_df = hand_df[['Best Hand', 'Hand Name', 'Hand Value','Frequency %']].reset_index(drop=True)
+        hand_df.index = hand_df.index+1
         print(hand_df)
+        print('')
 
     return ""
 
-# if __name__ == '__main__':
-#     #num_player = 6
-#     get_nuts(deck)
+if __name__ == '__main__':
+    #num_player = 6
+    get_nuts(False)

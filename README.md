@@ -116,7 +116,7 @@ Second Card: 13d
 
 There is an obvious trade off in the time it takes for the function to execute.
 
-If you would like to specify your own community cards (ortherwise it will default to random):
+If you would like to specify your own community cards:
  
 ```
 >>> import pokerprobs

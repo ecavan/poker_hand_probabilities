@@ -11,7 +11,7 @@
 # Table of Contents
 1. [Installation](#Installation)
 2. [Get Hand Odds](#Get-Hand-Odds)
-3. [Get Best Hand given Face Cards](#Get Best-Hand-given-Face-Cards)
+3. [Get Best Hand given Face Cards](#Get-Best-Hand-given-Face-Cards)
 4. [Simulate Hand](#Simulate-Hand)
 
 ## Installation

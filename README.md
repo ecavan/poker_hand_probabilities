@@ -1,5 +1,7 @@
 # Python Poker Tools
 
+[![Screen-Shot-2023-02-03-at-4-19-47-PM.png](https://i.postimg.cc/qBCxmFxx/Screen-Shot-2023-02-03-at-4-19-47-PM.png)](https://postimg.cc/0rPSjc3z)
+
 To install:
 ```
 pip install pokerprobs
@@ -107,5 +109,21 @@ Second Card: 13d
 ```
 
 There is an obvious trade off in the time it takes for the function to execute.
+
+If you would like to specify your own community cards (ortherwise it will default to random):
+ 
+```
+>>> import pokerprobs
+>>> pokerprobs.get_nuts(False)
+Community Cards (Spaced): 12s 10h 5d 6c 5s
+  Best Hand        Hand Name  Hand Value  Frequency %
+1     5h 5c   Four of a Kind           8     0.092507
+2   12h 12d       Full House           7     2.497687
+3     2h 5h  Three of a Kind           4     6.660500
+4   14h 14d         Two Pair           3    37.465310
+5     2h 3h             Pair           2    53.283996
+```
+As I get more time I'd like to expand the functionality to the get_nuts (just as a disclaimer record, the "Nuts" is the best hand in poker) and get_hand_odds functions to allow for simulations after flop, turn, river.
+
 
 Feel free to email me @ eli_cavan@live.ca or DM on twitter @cavan_elijah for comments/requests. 

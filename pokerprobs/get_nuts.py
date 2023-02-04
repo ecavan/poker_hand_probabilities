@@ -369,6 +369,6 @@ def get_nuts(chose = True):
 
     return ""
 
-if __name__ == '__main__':
-    #num_player = 6
-    get_nuts(False)
+# if __name__ == '__main__':
+#     #num_player = 6
+#     get_nuts(False)

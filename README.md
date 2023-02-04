@@ -134,4 +134,4 @@ Community Cards (Spaced): 12s 10h 5d 6c 5s
 As I get more time I'd like to expand the functionality to the get_nuts (just as a disclaimer record, the "Nuts" is the best hand in poker) and get_hand_odds functions to allow for simulations after flop, turn, river.
 
 
-Feel free to email me @ eli_cavan@live.ca or DM on twitter @cavan_elijah for comments/requests. 
+Feel free to DM on twitter [@cavan_elijah]([https://pages.github.com/](https://twitter.com/cavan_elijah)) for comments/requests. 

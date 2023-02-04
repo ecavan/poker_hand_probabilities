@@ -57,7 +57,7 @@ Community Cards
 5    9c 13s         Two Pair           3    37.465310
 6   10s 11d             Pair           2    49.953747
 ```
-This function returns a (right now random) set of community cards, and iterates through all combinations of starting hands to give you the best 5-card results and the probability that they will occur. 
+This function returns a random set of community cards, and iterates through all combinations of starting hands to give you the best 5-card results and the probability that they will occur. See below if you would like to chose these cards.
 
 Finally, 
 ```

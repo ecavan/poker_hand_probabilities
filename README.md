@@ -8,58 +8,24 @@
 
 <br />
 
+# Table of Contents
+1. [Installation](#Installation)
+2. [Get Hand Odds](#Get-Hand-Odds)
+3. [Get Best Hand given Face Cards](#Get Best-Hand-given-Face-Cards)
+4. [Simulate Hand](#Simulate-Hand)
+
+## Installation
+
 To install:
 ```
 pip install pokerprobs
 ```
 (or download the repo, cd into it and run pip install -e .; if not try the same with pip3)
 
-The cards are input and output as, for example, 12h,9d,3c; where h,d,c,s represent the suits hearts, diamonds, clubs and spades and 11,12,13,14 represent the jack, queen, king and ace respectively. There are three modules. After installing you can run:
+The cards are input and output as, for example, 12h,9d,3c; where h,d,c,s represent the suits hearts, diamonds, clubs and spades and 11,12,13,14 represent the jack, queen, king and ace respectively. There are three modules:
 
-```
+## Get Hand Odds
 
->>> import pokerprobs 
->>> pokerprobs.print_game(num_players)
-```
-
-This outputs a mock hand against specified number of players. It doesn't encoporate betting, but you can think about what you would have done given the flop, turn, ect. The output for a 6 player hand I ran for ex:
-
-```
-8c 11c
-
-Community Cards
-10s 12d 14c 7h 6d
-
-Opponent Hands:
-8c 3c | 11c 5s | 12h 5c | 9d 3s | 2c 7c | 
-
-Hand Results
-You had High Card vs Top Opponent Pair
-```
-You can also run:
-```
->>> import pokerprobs 
->>> pokerprobs.get_nuts()
-```
-example output:
-```
-Burn Cards
-5s 11c 14h
-
-Community Cards
-14s 14c 2h 9h 13h
-
-  Best Hand        Hand Name  Hand Value  Frequency %
-1   14h 14d   Four of a Kind           8     0.092507
-2   13s 14h       Full House           7     2.497687
-3    6h 14h            Flush           6     4.162812
-4   10s 14h  Three of a Kind           4     5.827937
-5    9c 13s         Two Pair           3    37.465310
-6   10s 11d             Pair           2    49.953747
-```
-This function returns a random set of community cards, and iterates through all combinations of starting hands to give you the best 5-card results and the probability that they will occur. See below if you would like to chose these cards.
-
-Finally, 
 ```
 >>> import pokerprobs 
 >>> pokerprobs.get_hand_odds(num_players, num_sims)
@@ -116,7 +82,29 @@ Second Card: 13d
 
 There is an obvious trade off in the time it takes for the function to execute.
 
-If you would like to specify your own community cards:
+## Get Best Hand given Face Cards
+
+```
+>>> import pokerprobs 
+>>> pokerprobs.get_nuts()
+```
+example output:
+```
+Burn Cards
+5s 11c 14h
+
+Community Cards
+14s 14c 2h 9h 13h
+
+  Best Hand        Hand Name  Hand Value  Frequency %
+1   14h 14d   Four of a Kind           8     0.092507
+2   13s 14h       Full House           7     2.497687
+3    6h 14h            Flush           6     4.162812
+4   10s 14h  Three of a Kind           4     5.827937
+5    9c 13s         Two Pair           3    37.465310
+6   10s 11d             Pair           2    49.953747
+```
+This function returns a random set of community cards, and iterates through all combinations of starting hands to give you the best 5-card results and the probability that they will occur. If you would like to specify your own community cards:
  
 ```
 >>> import pokerprobs
@@ -131,5 +119,26 @@ Community Cards (Spaced): 12s 10h 5d 6c 5s
 ```
 As I get more time I'd like to expand the functionality to the get_nuts (just as a disclaimer record, the "Nuts" is the best hand in poker) and get_hand_odds functions to allow for simulations after flop, turn, river.
 
+## Simulate Hand
+
+```
+>>> import pokerprobs 
+>>> pokerprobs.print_game(num_players)
+```
+
+This outputs a mock hand against specified number of players. It doesn't encoporate betting, but you can think about what you would have done given the flop, turn, ect. The output for a 6 player hand I ran for ex:
+
+```
+8c 11c
+
+Community Cards
+10s 12d 14c 7h 6d
+
+Opponent Hands:
+8c 3c | 11c 5s | 12h 5c | 9d 3s | 2c 7c | 
+
+Hand Results
+You had High Card vs Top Opponent Pair
+```
 
 Feel free to DM on twitter [@cavan_elijah](https://twitter.com/cavan_elijah) for comments/requests. 

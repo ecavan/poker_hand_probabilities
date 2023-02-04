@@ -1,6 +1,6 @@
 # Python Poker Tools
 
-[![Screen-Shot-2023-02-03-at-4-19-47-PM.png](https://i.postimg.cc/qBCxmFxx/Screen-Shot-2023-02-03-at-4-19-47-PM.png)](https://postimg.cc/0rPSjc3z)
+[![Screen-Shot-2023-02-03-at-4-19-47-PM.png -thumbnail](https://i.postimg.cc/qBCxmFxx/Screen-Shot-2023-02-03-at-4-19-47-PM.png)](https://postimg.cc/0rPSjc3z)
 
 To install:
 ```

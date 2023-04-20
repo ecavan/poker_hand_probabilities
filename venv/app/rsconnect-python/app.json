@@ -1,0 +1,11 @@
+{
+    "https://api.shinyapps.io": {
+        "server_url": "https://api.shinyapps.io",
+        "filename": "/Users/elijah/Desktop/Files/poker_hand_probabilities/venv/app",
+        "app_url": "https://ecavs.shinyapps.io/poker-app/",
+        "app_id": 8737833,
+        "app_guid": null,
+        "title": "poker-app",
+        "app_mode": "python-shiny"
+    }
+}

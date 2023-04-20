@@ -8,6 +8,8 @@
 
 <br />
 
+Now a shiny app with more functionality: https://ecavs.shinyapps.io/poker-app/
+
 # Table of Contents
 1. [Installation](#Installation)
 2. [Get Hand Odds](#Get-Hand-Odds)
